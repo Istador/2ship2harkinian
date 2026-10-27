@@ -1710,7 +1710,7 @@ void FileSelect_DrawWindowContents(GameState* thisx) {
     gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 0);
 
     gSPVertex(POLY_OPA_DISP++, &this->windowContentVtx[0], 4, 0);
-    if (ResourceMgr_HasGameVersion(MM_PAL_11)) {
+    if (ResourceMgr_HasPALVersion()) {
         // PAL title labels are natively IA4, including English.
         gDPLoadTextureBlock_4b(POLY_OPA_DISP++, sTitleLabels[this->titleLabel], G_IM_FMT_IA, 128, 16, 0,
                                G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,
@@ -1725,7 +1725,7 @@ void FileSelect_DrawWindowContents(GameState* thisx) {
     // draw next title label
     gDPPipeSync(POLY_OPA_DISP++);
     gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, this->titleAlpha[FS_TITLE_NEXT]);
-    if (ResourceMgr_HasGameVersion(MM_PAL_11)) {
+    if (ResourceMgr_HasPALVersion()) {
         gDPLoadTextureBlock_4b(POLY_OPA_DISP++, sTitleLabels[this->nextTitleLabel], G_IM_FMT_IA, 128, 16, 0,
                                G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,
                                G_TX_NOLOD, G_TX_NOLOD);
@@ -1875,11 +1875,11 @@ void FileSelect_DrawWindowContents(GameState* thisx) {
             gDPLoadTextureBlock_4b(POLY_OPA_DISP++, sWarningLabelsIA4[this->warningLabel], G_IM_FMT_IA, 128, 16, 0,
                                    G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,
                                    G_TX_NOLOD, G_TX_NOLOD);
-        } else if (ResourceMgr_HasGameVersion(MM_PAL_11)) {
+        } else if (ResourceMgr_HasPALVersion()) {
             // PAL warning labels use the normal names, but their data is IA4.
             gDPLoadTextureBlock_4b(POLY_OPA_DISP++, sWarningLabels[this->warningLabel], G_IM_FMT_IA, 128, 16, 0,
                                    G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,
-                                   G_TX_NOLOD, G_TX_NOLOD);
+                                   G_TX_NOLOD, G_TX_NOLOD); // TODO: sWarningLabelsIA4 ?
         } else { // MM_NTSC_US_10
             gDPLoadTextureBlock(POLY_OPA_DISP++, sWarningLabels[this->warningLabel], G_IM_FMT_IA, G_IM_SIZ_8b, 128, 16,
                                 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,

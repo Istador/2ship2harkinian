@@ -188,7 +188,7 @@ void KaleidoScope_DrawDungeonMap(PlayState* play) {
     gDPSetCombineMode(POLY_OPA_DISP++, G_CC_MODULATEIA, G_CC_MODULATEIA);
 
     // QUAD_MAP_PAGE_DUNGEON_TITLE
-    if (ResourceMgr_HasGameVersion(MM_PAL_11)) {
+    if (ResourceMgr_HasPALVersion()) {
         // PAL stores all localized dungeon titles, including English, as IA4.
         POLY_OPA_DISP =
             Gfx_DrawTexQuad4b(POLY_OPA_DISP, sDungeonTitleTextures[((void)0, gSaveContext.dungeonSceneSharedIndex)],

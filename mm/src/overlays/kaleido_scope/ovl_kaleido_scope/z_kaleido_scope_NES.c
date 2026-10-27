@@ -1087,7 +1087,7 @@ TexturePtr D_8082B9A8[] = {
 };
 
 static u16 KaleidoScope_GetPalLabelWidth(u16 engWidth, u16 gerWidth, u16 fraWidth, u16 espWidth) {
-    if (!ResourceMgr_HasGameVersion(MM_PAL_11)) {
+    if (!ResourceMgr_HasPALVersion()) {
         return engWidth;
     }
 

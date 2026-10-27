@@ -644,7 +644,7 @@ void OTRGlobals::Initialize() {
         context->GetResourceManager()->GetArchiveManager()->AddArchive(mmPath);
     }
 
-    std::unordered_set<uint32_t> validHashes = { MM_NTSC_US_10, MM_NTSC_US_GC, MM_PAL_11 };
+    std::unordered_set<uint32_t> validHashes = { MM_NTSC_US_10, MM_NTSC_US_GC, MM_PAL_10, MM_PAL_11, MM_PAL_GC };
 
 #if (_DEBUG)
     auto defaultLogLevel = spdlog::level::debug;
@@ -754,7 +754,7 @@ void OTRGlobals::Initialize() {
     auto versions = context->GetResourceManager()->GetArchiveManager()->GetGameVersions();
     bool hasPalVersion = false;
     for (uint32_t version : versions) {
-        if (version == MM_PAL_11) {
+        if (version == MM_PAL_10 || version == MM_PAL_11 || version == MM_PAL_GC) {
             hasPalVersion = true;
         }
 
@@ -1364,15 +1364,34 @@ extern "C" bool ResourceMgr_HasGameVersion(uint32_t version) {
     return false;
 }
 
+extern "C" bool ResourceMgr_HasPALVersion() {
+    const auto versions = Ship::Context::GetRawInstance()->GetResourceManager()->GetArchiveManager()->GetGameVersions();
+
+    for (uint32_t version : versions) {
+        switch (version) {
+            case MM_PAL_10:
+            case MM_PAL_11:
+            case MM_PAL_GC:
+                return true;
+            default:
+                continue;
+        }
+    }
+
+    return false;
+}
+
 extern "C" uint32_t ResourceMgr_GetGamePlatform(int index) {
     uint32_t version =
         Ship::Context::GetRawInstance()->GetResourceManager()->GetArchiveManager()->GetGameVersions()[index];
 
     switch (version) {
+        case MM_PAL_10:
         case MM_PAL_11:
         case MM_NTSC_US_10:
             return GAME_PLATFORM_N64;
         case MM_NTSC_US_GC:
+        case MM_PAL_GC:
             return GAME_PLATFORM_GC;
     }
 }
@@ -1382,7 +1401,9 @@ extern "C" uint32_t ResourceMgr_GetGameRegion(int index) {
         Ship::Context::GetRawInstance()->GetResourceManager()->GetArchiveManager()->GetGameVersions()[index];
 
     switch (version) {
+        case MM_PAL_10:
         case MM_PAL_11:
+        case MM_PAL_GC:
             return GAME_REGION_PAL;
         case MM_NTSC_US_10:
         case MM_NTSC_US_GC:

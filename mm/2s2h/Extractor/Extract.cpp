@@ -55,12 +55,14 @@ static constexpr uint32_t MM_US_10 = 0x5354631C;
 static constexpr uint32_t MM_PAL_10 = 0xE97955C6;
 static constexpr uint32_t MM_PAL_11 = 0x0A5D8F83;
 static constexpr uint32_t MM_US_GC = 0xB443EB08;
+static constexpr uint32_t MM_PAL_GC = 0x6AECEC4F;
 
 static const std::unordered_map<uint32_t, const char*> verMap = {
     { MM_US_10, "US 1.0" },
     { MM_PAL_10, "EU/PAL 1.0 (unsupported)" },
     { MM_PAL_11, "EU/PAL 1.1" },
     { MM_US_GC, "US GC" },
+    { MM_PAL_GC, "EU/PAL GC" },
 };
 
 static constexpr const char* MM_PAL_10_UNSUPPORTED_MESSAGE =
@@ -74,6 +76,7 @@ static constexpr std::array<const uint32_t, 10> goodCrcs = {
     0x96F49400, // MM US 1.0 32MB
     0xE3038C1C, // MM EU/PAL 1.1 32MB
     0xBB434787, // MM GC
+    0xB82EC0E9, // MM EU/PAL GC
 };
 
 enum class ButtonId : int {
@@ -561,10 +564,14 @@ const char* Extractor::GetZapdVerStr() const {
     switch (GetRomVerCrc()) {
         case MM_US_10:
             return "N64_US";
+        case MM_PAL_10:
+            return "N64_PAL_10";
         case MM_PAL_11:
             return "MM_PAL_11";
         case MM_US_GC:
             return "GC_US";
+        case MM_PAL_GC:
+            return "GC_PAL";
         default:
             // We should never be in a state where this path happens.
             UNREACHABLE;

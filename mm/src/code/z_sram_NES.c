@@ -17,7 +17,7 @@ void func_80147414(SramContext* sramCtx, s32 fileNum, s32 arg2);
      (newf)[5] != '3')
 
 static void Sram_ValidateLanguageOption(void) {
-    if (!ResourceMgr_HasGameVersion(MM_PAL_11) || (gSaveContext.options.language < LANGUAGE_ENG) ||
+    if (!ResourceMgr_HasPALVersion() || (gSaveContext.options.language < LANGUAGE_ENG) ||
         (gSaveContext.options.language > LANGUAGE_SPA)) {
         gSaveContext.options.language = LANGUAGE_ENG;
     }

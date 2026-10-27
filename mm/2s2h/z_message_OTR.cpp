@@ -63,7 +63,7 @@ extern "C" MessageTableEntry* OTRMessage_GetTable(u8 language) {
 extern "C" void OTRMessage_Init() {
     sMessageTables[LANGUAGE_ENG] = OTRMessage_LoadTable("text/message_data_static/message_data_static", true);
 
-    if (ResourceMgr_HasGameVersion(MM_PAL_11)) {
+    if (ResourceMgr_HasPALVersion()) {
         sMessageTables[LANGUAGE_GER] =
             OTRMessage_LoadTable("text/message_data_static_ger/message_data_static_ger", true);
         sMessageTables[LANGUAGE_FRE] =

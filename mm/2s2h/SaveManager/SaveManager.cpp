@@ -337,7 +337,7 @@ bool SaveManager_HandleFileDropped(char* filePath) {
 #define CVAR_ZTARGET_SETTING "gSettings.ZTargetSetting"
 
 static u8 SaveManager_NormalizeLanguage(int32_t language) {
-    if (!ResourceMgr_HasGameVersion(MM_PAL_11) || language < LANGUAGE_ENG || language > LANGUAGE_SPA) {
+    if (language < LANGUAGE_ENG || language > LANGUAGE_SPA || !ResourceMgr_HasPALVersion()) {
         return LANGUAGE_ENG;
     }
 
